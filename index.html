@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AI Tic Tac Toe</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<body>
+    <div id="buttons">
+        <button id="1" onclick="squarePressed(this.id)"> </button>
+        <button id="2" onclick="squarePressed(this.id)"> </button>
+        <button id="3" onclick="squarePressed(this.id)"> </button>
+        <br>
+        <button id="4" onclick="squarePressed(this.id)"> </button>
+        <button id="5" onclick="squarePressed(this.id)"> </button>
+        <button id="6" onclick="squarePressed(this.id)"> </button>
+        <br>
+        <button id="7" onclick="squarePressed(this.id)"> </button>
+        <button id="8" onclick="squarePressed(this.id)"> </button>
+        <button id="9" onclick="squarePressed(this.id)"> </button>
+        <br>
+        
+        <div id="playerTurn">
+            <br>
+            <p id="Player1Text">Player 1: X</p>
+            <br>
+            <p id="Player2Text">Player 2: O</p>
+            <br>
+            <input type='button' id='newGame' name='newGame' onclick='newGame()' value='New Game'>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    </body>
+</html>
