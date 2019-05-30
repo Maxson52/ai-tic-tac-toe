@@ -183,20 +183,36 @@ function AImove() {
         playerTurn = true;
     }
     else {
-        if (!Xsquares.includes('5') && !Osquares.includes('5')) {
-            document.getElementById('5').innerHTML = 'O';
-            playerTurn = true;
-            Osquares.push('5');
+        let corner = Math.floor(Math.random() * 10 + 1);
+        let corn;
+        let edge;
+        if (corner === 0 || corner == 1 || corner == 2) {
+            corn = '1';
+            edge = '2';
         }
-        else if (!Xsquares.includes('1') && !Osquares.includes('1')) {
-            document.getElementById('1').innerHTML = 'O';
-            playerTurn = true;
-            Osquares.push('1');
+        else if (corner == 3 || corner == 4 || corner == 5) {
+            corn = '3';
+            edge = '4';
         }
-        else if (!Xsquares.includes('3') && !Osquares.includes('3')) {
-            document.getElementById('3').innerHTML = 'O';
+        else if (corner == 6 || corner == 7 || corner == 8) {
+            corn = '7';
+            edge = '6';
+        }
+        else {
+            corn = '9';
+            edge = '8';
+        }
+        
+        
+        if (!Xsquares.includes(corn) && !Osquares.includes(corn)) {
+            document.getElementById(corn).innerHTML = 'O';
             playerTurn = true;
-            Osquares.push('3');
+            Osquares.push(corn);
+        }
+        else if (!Xsquares.includes(edge) && !Osquares.includes(edge)) {
+            document.getElementById(edge).innerHTML = 'O';
+            playerTurn = true;
+            Osquares.push(edge);
         }
         else if (!Osquares.includes(str) && !Xsquares.includes(str) && int != 9) {
             document.getElementById(str).innerHTML = 'O';
