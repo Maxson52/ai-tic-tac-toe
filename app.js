@@ -3,7 +3,6 @@ let totalMoves = 0;
 let XO = 'X';
 let Player1Var = document.getElementById('Player1Text');
 let Player2Var = document.getElementById('Player2Text');
-let turns;
 let id;
 let Xsquares = [];
 let Osquares = [];
@@ -73,15 +72,8 @@ function newGame() {
     XO = 'X';
     Player1Var = document.getElementById('Player1Text');
     Player2Var = document.getElementById('Player2Text');
-    turns;
     Xsquares = [];
     Osquares = [];
-    spots = [];
-    nextO = 5;
-    int = 0;
-    str = 0;
-    numb = 0;
-    winSpots = [];
     
     for (let i = 1; i < 10; i++) {
         document.getElementById(i).innerHTML = ' ';
@@ -102,163 +94,5 @@ function checkPlayerTurn() {
         Player1Var.style = "border: 0px; margin: 0 auto; background-color: #9068be; width: 100px;";
     }
 }
-
-
-//---------------------------------------------------
-//AI component
-let spots = [];
-let winSpots = [];
-
-function AIcheck() {
-    for (let i = 0; i < winningCombo.length; i++) {
-        if (Xsquares.includes(winningCombo[i][0]) && Xsquares.includes(winningCombo[i][1]) && !Osquares.includes(winningCombo[i][2])) {
-            if (!spots.includes(winningCombo[i][2]) && !Xsquares.includes(winningCombo[i][2])) {
-                spots.push(winningCombo[i][2]);
-            }
-        }
-        if (Xsquares.includes(winningCombo[i][1]) && Xsquares.includes(winningCombo[i][2]) && !Osquares.includes(winningCombo[i][0])) {
-            if (!spots.includes(winningCombo[i][0]) && !Xsquares.includes(winningCombo[i][0])) {
-                spots.push(winningCombo[i][0]);
-            }
-        }
-        if (Xsquares.includes(winningCombo[i][0]) && Xsquares.includes(winningCombo[i][2]) && !Osquares.includes(winningCombo[i][1])) {
-            if (!spots.includes(winningCombo[i][1]) && !Xsquares.includes(winningCombo[i][1])) {
-                spots.push(winningCombo[i][1]);
-            }
-        }
-        
-        //check if AI can win
-        if (Osquares.includes(winningCombo[i][0]) && Osquares.includes(winningCombo[i][1]) && !Xsquares.includes(winningCombo[i][2])) {
-            if (!winSpots.includes(winningCombo[i][2]) && !Xsquares.includes(winningCombo[i][2])) {
-                winSpots.push(winningCombo[i][2]);
-            }
-        }
-        if (Osquares.includes(winningCombo[i][1]) && Osquares.includes(winningCombo[i][2]) && !Xsquares.includes(winningCombo[i][0])) {
-            if (!winSpots.includes(winningCombo[i][0]) && !Xsquares.includes(winningCombo[i][0])) {
-                winSpots.push(winningCombo[i][0]);
-            }
-        }
-        if (Osquares.includes(winningCombo[i][0]) && Osquares.includes(winningCombo[i][2]) && !Xsquares.includes(winningCombo[i][1])) {
-            if (!winSpots.includes(winningCombo[i][1]) && !Xsquares.includes(winningCombo[i][1])) {
-                winSpots.push(winningCombo[i][1]);
-            }
-        }
-    }
-    if (!playerTurn) {
-        for (let i = 0; i < winSpots.length; i++) {
-            if (Xsquares.includes(winSpots[i])) {
-                winSpots.splice(i,1);
-            }
-        }
-        AImove();
-    }
-}
-
-let nextO = 5;
-let int;
-let str;
-let numb = 0;
-
-function AImove() {
-    int = parseInt(Xsquares[numb], 10);
-    nextO = int + 1;
-    str = nextO.toString();
-    
-    console.log(Xsquares);
-    console.log(str);
-    console.log(winSpots);
-
-    if (winSpots.length > 0) {
-        let newID = winSpots[0];
-        winSpots.shift();
-        document.getElementById(newID).innerHTML = 'O';
-        playerTurn = true;
-        Osquares.push(newID);
-    }
-    else if (spots.length > 0) {
-        let id = spots[0];
-        spots.shift();
-        document.getElementById(id).innerHTML = 'O';
-        Osquares.push(id);
-        playerTurn = true;
-    }
-    else {
-        let corner = Math.floor(Math.random() * 10 + 1);
-        let corn;
-        let edge;
-        if (corner === 0 || corner == 1 || corner == 2) {
-            corn = '1';
-            edge = '2';
-        }
-        else if (corner == 3 || corner == 4 || corner == 5) {
-            corn = '3';
-            edge = '4';
-        }
-        else if (corner == 6 || corner == 7 || corner == 8) {
-            corn = '7';
-            edge = '6';
-        }
-        else {
-            corn = '9';
-            edge = '8';
-        }
-        
-        
-        if (!Xsquares.includes(corn) && !Osquares.includes(corn)) {
-            document.getElementById(corn).innerHTML = 'O';
-            playerTurn = true;
-            Osquares.push(corn);
-        }
-        else if (!Xsquares.includes(edge) && !Osquares.includes(edge)) {
-            document.getElementById(edge).innerHTML = 'O';
-            playerTurn = true;
-            Osquares.push(edge);
-        }
-        else if (!Osquares.includes(str) && !Xsquares.includes(str) && int != 9) {
-            document.getElementById(str).innerHTML = 'O';
-            playerTurn = true;
-            Osquares.push(str);
-            if (Xsquares.length == 1) {
-                numb = 0;
-            }
-            else if (Xsquares.length < 0) {
-                numb++;
-            }
-            else {
-                numb = 0;
-            }
-        }
-        else {
-            numb++;
-            int = parseInt(Xsquares[numb], 10);
-            nextO = int + 1;
-            
-            if (!Osquares.includes(str) && !Xsquares.includes(str)) {
-                document.getElementById(str).innerHTML = 'O';
-                playerTurn = true;
-                Osquares.push(str);
-            }
-            else {
-                let newInt = parseInt(Osquares[0], 10);
-                let newNextO = newInt + 1;
-                let newStr = newNextO.toString();
-                
-                if (!Osquares.includes(newStr) && !Xsquares.includes(newStr)) {
-                    document.getElementById(newStr).innerHTML = 'O';
-                    playerTurn = true;
-                    Osquares.push(newStr);   
-                }
-            }   
-        }
-    }
-    winCondition();
-}
-
-
-setInterval(AIcheck,500);
-
-//end of AI component
-//---------------------------------------------------
-
 
 checkPlayerTurn();
